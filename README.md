@@ -9,4 +9,4 @@ When you import this project, make sure gradle syncs properly.
 
 We want to use build for Android SDK 16, Jellybean.
 
-My version of Android studio is 2.2.3 and I'm using the emulator with settings: Nexus 4 API 16.
+My version of Android studio is 2.2.3 and I'm using the emulator with settings: Nexus 4 API 23. Feel free to use any AS/Emulator versions.
