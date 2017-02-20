@@ -10,8 +10,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="holay.team.memorycards.MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@+id/title_name"
+        android:layout_centerHorizontal="true"
+        android:text="@string/play_text"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/highScore_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/play_button"
+        android:layout_centerHorizontal="true"
+        android:text="@string/highScore_text"/>
+
+    <ImageView
+        android:id="@+id/title_name"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:src="@drawable/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="50dp"/>
+
+
 </RelativeLayout>
+

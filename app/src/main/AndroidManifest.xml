@@ -15,6 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SelectionActivity"
+            android:label="SelectionActivity"/>
+        <activity
+            android:name=".PlayActivity"
+            android:label="PlayActivity"></activity>
     </application>
 
 </manifest>
