@@ -21,6 +21,9 @@
         <activity
             android:name=".PlayActivity"
             android:label="PlayActivity"></activity>
+        <activity
+            android:name=".HighscoreActivity"
+            android:label="HighscoreActivity"></activity>
     </application>
 
 </manifest>

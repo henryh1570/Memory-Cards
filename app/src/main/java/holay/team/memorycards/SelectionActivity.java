@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.text.Selection;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SelectionActivity extends AppCompatActivity {
 
     private Button mButton4, mButton6, mButton8, mButton10, mButton12;
     private Button mButton14, mButton16, mButton18, mButton20;
+    private Button continueButton;
+    private TextView title;
+    private int numOfCards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +34,18 @@ public class SelectionActivity extends AppCompatActivity {
         mButton16 = (Button) findViewById(R.id.sixteen_button);
         mButton18 = (Button) findViewById(R.id.eighteen_button);
         mButton20 = (Button) findViewById(R.id.twenty_button);
+        continueButton = (Button) findViewById(R.id.continue_button);
+        continueButton.setEnabled(false);
+
+        title = (TextView) findViewById(R.id.title_text);
 
         mButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.four_text, Toast.LENGTH_SHORT).show();
-
+                numOfCards = 4;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
             }
         });
 
@@ -43,7 +53,9 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.six_text, Toast.LENGTH_SHORT).show();
-
+                numOfCards = 6;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
             }
         });
 
@@ -51,6 +63,9 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.eight_text, Toast.LENGTH_SHORT).show();
+                numOfCards = 8;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
             }
         });
 
@@ -58,6 +73,9 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.ten_text, Toast.LENGTH_SHORT).show();
+                numOfCards = 10;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
             }
         });
 
@@ -65,6 +83,9 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.twelve_text, Toast.LENGTH_SHORT).show();
+                numOfCards = 12;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
             }
         });
 
@@ -72,6 +93,9 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.fourteen_text, Toast.LENGTH_SHORT).show();
+                numOfCards = 14;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
             }
         });
 
@@ -79,6 +103,9 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.sixteen_text, Toast.LENGTH_SHORT).show();
+                numOfCards = 16;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
             }
         });
 
@@ -86,6 +113,9 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.eighteen_text, Toast.LENGTH_SHORT).show();
+                numOfCards = 18;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
             }
         });
 
@@ -93,6 +123,17 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(SelectionActivity.this, R.string.twenty_text, Toast.LENGTH_SHORT).show();
+                numOfCards = 20;
+                continueButton.setEnabled(true);
+                title.setText(numOfCards + " Card Game");
+            }
+        });
+
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = PlayActivity.newIntent(SelectionActivity.this);
+                startActivity(i);
             }
         });
 

@@ -13,6 +13,7 @@
     tools:context="holay.team.memorycards.SelectionActivity">
 
     <TextView
+        android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/choose_game_text"
@@ -86,5 +87,11 @@
             android:text="@string/twenty_text"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/continue_button"
+        android:text="Continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
