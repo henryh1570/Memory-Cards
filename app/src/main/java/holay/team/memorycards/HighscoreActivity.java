@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 public class HighscoreActivity extends AppCompatActivity {
 
-    private TextView exampleTextView;
+    private TextView highscore1;
+    private TextView highscore2;
+    private TextView highscore3;
     private Button debugButton;
 
     @Override
@@ -19,7 +21,9 @@ public class HighscoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_highscore);
 
         // Wire components
-        exampleTextView = (TextView) findViewById(R.id.example);
+        highscore1 = (TextView) findViewById(R.id.high1);
+        highscore2 = (TextView) findViewById(R.id.high2);
+        highscore3 = (TextView) findViewById(R.id.high3);
         debugButton = (Button) findViewById(R.id.debugButton);
 
         debugButton.setOnClickListener(new View.OnClickListener() {

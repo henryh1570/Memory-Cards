@@ -2,31 +2,27 @@ package holay.team.memorycards;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Stack;
 
 public class PlayActivity extends AppCompatActivity {
 
     private int numOfCards;
     private TextView score;
     private int scoreNumber = 0;
-    private Button debugButton;
+    private Button endButton;
     private Button tryButton;
     private Button giveUpButton;
+    private ImageButton soundButton;
     private Card card1;
     private Card card2;
     private Card card3;
@@ -50,6 +46,7 @@ public class PlayActivity extends AppCompatActivity {
     private Card selected = null;
     private Card selected2 = null;
     private ArrayList<Card> cards;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
 
     public PlayActivity () {
         super();
@@ -63,9 +60,10 @@ public class PlayActivity extends AppCompatActivity {
         numOfCards = intent.getExtras().getInt("num");
 
         score = (TextView) findViewById(R.id.score);
-        debugButton = (Button) findViewById(R.id.debugButton);
+        endButton = (Button) findViewById(R.id.debugButton);
         tryButton = (Button) findViewById(R.id.tryButton);
         giveUpButton = (Button) findViewById(R.id.giveUpButton);
+        soundButton = (ImageButton) findViewById(R.id.soundButton);
         card1 = new Card(0,(ImageButton) findViewById(R.id.card1));
         card2 = new Card(0,(ImageButton) findViewById(R.id.card2));
         card3 = new Card(0,(ImageButton) findViewById(R.id.card3));
@@ -88,9 +86,13 @@ public class PlayActivity extends AppCompatActivity {
         card20 = new Card(0,(ImageButton) findViewById(R.id.card20));
         setCards();
 
-        debugButton.setOnClickListener(new View.OnClickListener() {
+        endButton.setOnClickListener(new View.OnClickListener() {
             @ Override
             public void onClick(View v) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                mediaPlayer = null;
                 Intent i = MainActivity.newIntent(PlayActivity.this);
                 startActivity(i);
             }
@@ -105,22 +107,29 @@ public class PlayActivity extends AppCompatActivity {
                 }
                 selected = null;
                 selected2 = null;
+                giveUpButton.setEnabled(false);
+                tryButton.setEnabled(false);
             }
         });
 
         tryButton.setOnClickListener(new View.OnClickListener() {
             @ Override
             public void onClick(View v) {
-                if (selected != null) {
+                if (selected != null & selected2 != null) {
                     selected.getButton().setEnabled(true);
                     selected.getButton().setImageResource(R.drawable.card);
                     selected = null;
-                }
-                if (selected2 != null) {
                     selected2.getButton().setEnabled(true);
                     selected2.getButton().setImageResource(R.drawable.card);
                     selected2 = null;
                 }
+            }
+        });
+
+        soundButton.setOnClickListener(new View.OnClickListener() {
+            @ Override
+            public void onClick(View v) {
+                playAudio("music.mp3");
             }
         });
 
@@ -723,6 +732,25 @@ public class PlayActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void playAudio(String audioFileName) {
+        if(mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        } else if (mediaPlayer.getCurrentPosition() > 1) {
+            mediaPlayer.start();
+        } else {
+            try {
+                mediaPlayer.reset();
+                AssetFileDescriptor afd;
+                afd = getAssets().openFd(audioFileName);
+                mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setCards() {
