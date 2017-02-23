@@ -8,18 +8,155 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg2"
     tools:context="holay.team.memorycards.PlayActivity">
 
     <Button
         android:id="@+id/debugButton"
-        android:text="DEBUG BACK"
+        android:text="New Game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/tryButton"
+        android:text="Try again"
+        android:layout_toRightOf="@id/debugButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/giveUpButton"
+        android:text="End Game"
+        android:layout_toRightOf="@id/tryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/row1"
+        android:layout_below="@+id/debugButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/card1"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card2"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card3"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card4"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row2"
+        android:layout_below="@+id/row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/card5"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card6"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card7"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card8"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row3"
+        android:layout_below="@+id/row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/card9"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card10"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card11"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card12"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row4"
+        android:layout_below="@+id/row3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/card13"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card14"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card15"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card16"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row5"
+        android:layout_below="@+id/row4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/card17"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card18"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card19"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+        <ImageButton
+            android:id="@+id/card20"
+            android:layout_width="56dp"
+            android:layout_height="82dp" />
+    </LinearLayout>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ADD GAME HERE"
-        android:textAlignment="center"
-        android:gravity="center"/>
+        android:id="@+id/score"
+        android:layout_below="@+id/row5"
+        android:textSize="48dp"
+        android:textColor="#25A983"
+        android:text="Score: 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

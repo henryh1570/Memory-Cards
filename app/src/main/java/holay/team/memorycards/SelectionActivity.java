@@ -132,7 +132,8 @@ public class SelectionActivity extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = PlayActivity.newIntent(SelectionActivity.this);
+                Intent i = PlayActivity.newIntent(getApplicationContext());
+                i.putExtra("num", numOfCards);
                 startActivity(i);
             }
         });
