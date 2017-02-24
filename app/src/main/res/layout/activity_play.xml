@@ -166,4 +166,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/saveScoreButton"
+        android:layout_below="@id/row5"
+        android:layout_toRightOf="@+id/score"
+        android:text="Save Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

@@ -1,21 +1,40 @@
 package holay.team.memorycards;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class PlayActivity extends AppCompatActivity {
 
+    // Global Declarations
     private int numOfCards;
     private TextView score;
     private int scoreNumber = 0;
@@ -23,6 +42,7 @@ public class PlayActivity extends AppCompatActivity {
     private Button tryButton;
     private Button giveUpButton;
     private ImageButton soundButton;
+    private Button saveButton;
     private Card card1;
     private Card card2;
     private Card card3;
@@ -47,8 +67,9 @@ public class PlayActivity extends AppCompatActivity {
     private Card selected2 = null;
     private ArrayList<Card> cards;
     private MediaPlayer mediaPlayer = new MediaPlayer();
+    private AlertDialog.Builder adb;
 
-    public PlayActivity () {
+    public PlayActivity() {
         super();
     }
 
@@ -64,30 +85,33 @@ public class PlayActivity extends AppCompatActivity {
         tryButton = (Button) findViewById(R.id.tryButton);
         giveUpButton = (Button) findViewById(R.id.giveUpButton);
         soundButton = (ImageButton) findViewById(R.id.soundButton);
-        card1 = new Card(0,(ImageButton) findViewById(R.id.card1));
-        card2 = new Card(0,(ImageButton) findViewById(R.id.card2));
-        card3 = new Card(0,(ImageButton) findViewById(R.id.card3));
-        card4 = new Card(0,(ImageButton) findViewById(R.id.card4));
-        card5 = new Card(0,(ImageButton) findViewById(R.id.card5));
-        card6 = new Card(0,(ImageButton) findViewById(R.id.card6));
-        card7 = new Card(0,(ImageButton) findViewById(R.id.card7));
-        card8 = new Card(0,(ImageButton) findViewById(R.id.card8));
-        card9 = new Card(0,(ImageButton) findViewById(R.id.card9));
-        card10 = new Card(0,(ImageButton) findViewById(R.id.card10));
-        card11 = new Card(0,(ImageButton) findViewById(R.id.card11));
-        card12 = new Card(0,(ImageButton) findViewById(R.id.card12));
-        card13 = new Card(0,(ImageButton) findViewById(R.id.card13));
-        card14 = new Card(0,(ImageButton) findViewById(R.id.card14));
-        card15 = new Card(0,(ImageButton) findViewById(R.id.card15));
-        card16 = new Card(0,(ImageButton) findViewById(R.id.card16));
-        card17 = new Card(0,(ImageButton) findViewById(R.id.card17));
-        card18 = new Card(0,(ImageButton) findViewById(R.id.card18));
-        card19 = new Card(0,(ImageButton) findViewById(R.id.card19));
-        card20 = new Card(0,(ImageButton) findViewById(R.id.card20));
+        saveButton = (Button) findViewById(R.id.saveScoreButton);
+        card1 = new Card(0, (ImageButton) findViewById(R.id.card1));
+        card2 = new Card(0, (ImageButton) findViewById(R.id.card2));
+        card3 = new Card(0, (ImageButton) findViewById(R.id.card3));
+        card4 = new Card(0, (ImageButton) findViewById(R.id.card4));
+        card5 = new Card(0, (ImageButton) findViewById(R.id.card5));
+        card6 = new Card(0, (ImageButton) findViewById(R.id.card6));
+        card7 = new Card(0, (ImageButton) findViewById(R.id.card7));
+        card8 = new Card(0, (ImageButton) findViewById(R.id.card8));
+        card9 = new Card(0, (ImageButton) findViewById(R.id.card9));
+        card10 = new Card(0, (ImageButton) findViewById(R.id.card10));
+        card11 = new Card(0, (ImageButton) findViewById(R.id.card11));
+        card12 = new Card(0, (ImageButton) findViewById(R.id.card12));
+        card13 = new Card(0, (ImageButton) findViewById(R.id.card13));
+        card14 = new Card(0, (ImageButton) findViewById(R.id.card14));
+        card15 = new Card(0, (ImageButton) findViewById(R.id.card15));
+        card16 = new Card(0, (ImageButton) findViewById(R.id.card16));
+        card17 = new Card(0, (ImageButton) findViewById(R.id.card17));
+        card18 = new Card(0, (ImageButton) findViewById(R.id.card18));
+        card19 = new Card(0, (ImageButton) findViewById(R.id.card19));
+        card20 = new Card(0, (ImageButton) findViewById(R.id.card20));
+        saveButton.setVisibility(View.INVISIBLE);
+        saveButton.setEnabled(false);
         setCards();
 
         endButton.setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
@@ -99,7 +123,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         giveUpButton.setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 for (Card c : cards) {
                     c.getButton().setImageResource(c.image);
@@ -113,7 +137,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         tryButton.setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 if (selected != null & selected2 != null) {
                     selected.getButton().setEnabled(true);
@@ -127,14 +151,59 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         soundButton.setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 playAudio("music.mp3");
             }
         });
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Code to customize a dialog box for entering name and save later.
+                final EditText editText = new EditText(PlayActivity.this);
+                editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                adb = new AlertDialog.Builder(PlayActivity.this);
+                adb.setTitle("Save Score");
+                adb
+                        .setMessage("Enter your Name!")
+                        .setCancelable(false)
+                        .setView(editText)
+                        .setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Enter and return to selection screen
+                                char[] arr = editText.getText().toString().toLowerCase().toCharArray();
+                                if (arr.length == 0) {
+                                    return;
+                                }
+                                for (char c : arr) {
+                                    // Disallow non-characters
+                                    if (c < 'a' || c > 'z') {
+                                        return;
+                                    }
+                                }
+
+                                if (mediaPlayer.isPlaying()) {
+                                    mediaPlayer.stop();
+                                }
+                                mediaPlayer = null;
+                                saveScore(scoreNumber, editText.getText().toString());
+                                PlayActivity.this.finish();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alertDialog = adb.create();
+                alertDialog.show();
+            }
+        });
+
         card1.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card1.getButton().isEnabled() && selected2 == null) {
@@ -147,6 +216,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -164,7 +234,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card2.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card2.getButton().isEnabled() && selected2 == null) {
@@ -177,6 +247,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -194,7 +265,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card3.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card3.getButton().isEnabled() && selected2 == null) {
@@ -207,6 +278,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -224,7 +296,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card4.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card4.getButton().isEnabled() && selected2 == null) {
@@ -237,6 +309,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -254,7 +327,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card5.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card5.getButton().isEnabled() && selected2 == null) {
@@ -267,6 +340,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -284,7 +358,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card6.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card6.getButton().isEnabled() && selected2 == null) {
@@ -297,6 +371,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -314,7 +389,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card7.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card7.getButton().isEnabled() && selected2 == null) {
@@ -327,6 +402,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -344,7 +420,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card8.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card8.getButton().isEnabled() && selected2 == null) {
@@ -357,6 +433,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -374,7 +451,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card9.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card9.getButton().isEnabled() && selected2 == null) {
@@ -387,6 +464,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -404,7 +482,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card10.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card10.getButton().isEnabled() && selected2 == null) {
@@ -417,6 +495,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -434,7 +513,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card11.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card11.getButton().isEnabled() && selected2 == null) {
@@ -447,6 +526,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -464,7 +544,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card12.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card12.getButton().isEnabled() && selected2 == null) {
@@ -477,6 +557,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -494,7 +575,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card13.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card13.getButton().isEnabled() && selected2 == null) {
@@ -507,6 +588,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -524,7 +606,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card14.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card14.getButton().isEnabled() && selected2 == null) {
@@ -537,6 +619,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -554,7 +637,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card15.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card15.getButton().isEnabled() && selected2 == null) {
@@ -567,6 +650,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -584,7 +668,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card16.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card16.getButton().isEnabled() && selected2 == null) {
@@ -597,6 +681,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -614,7 +699,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card17.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card17.getButton().isEnabled() && selected2 == null) {
@@ -627,6 +712,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -644,7 +730,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card18.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card18.getButton().isEnabled() && selected2 == null) {
@@ -657,6 +743,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -674,7 +761,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card19.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card19.getButton().isEnabled() && selected2 == null) {
@@ -687,6 +774,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -704,7 +792,7 @@ public class PlayActivity extends AppCompatActivity {
         });
 
         card20.getButton().setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 // Check if 0 or 1 cards have been selected
                 if (card20.getButton().isEnabled() && selected2 == null) {
@@ -717,6 +805,7 @@ public class PlayActivity extends AppCompatActivity {
                             selected = null;
                             scoreNumber += 2;
                             score.setText("Score: " + scoreNumber);
+                            checkIfGameIsOver();
                         } else {
                             if (scoreNumber != 0) {
                                 scoreNumber += -1;
@@ -734,8 +823,40 @@ public class PlayActivity extends AppCompatActivity {
         });
     }
 
+    private void saveScore(int score, String name) {
+        FileOutputStream outputStream;
+        try {
+            // Grab the 2 previous highest scores.
+            FileReader fr = new FileReader(getFilesDir().toString() + "/highscores.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String[] highest = {"000:N/A", "000:N/A", ""+(score + ":" + name)};
+            String dummy = br.readLine();
+            int i = 0;
+            while (dummy != null && i != 2) {
+                highest[i] = dummy;
+                i++;
+                dummy = br.readLine();
+            }
+
+            // Write in the previous 2 highest scores plus the new one.
+            outputStream = openFileOutput("highscores.txt", Context.MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(outputStream);
+            Arrays.sort(highest, Collections.reverseOrder());
+            for (String str : highest) {
+                osw.write(str);
+                osw.write("\n");
+            }
+            fr.close();
+            br.close();
+            osw.close();
+            outputStream.close();
+        } catch (Exception e) {
+            Log.d("EXCEPTION : ", e.toString());
+        }
+    }
+
     public void playAudio(String audioFileName) {
-        if(mediaPlayer.isPlaying()) {
+        if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
         } else if (mediaPlayer.getCurrentPosition() > 1) {
             mediaPlayer.start();
@@ -806,7 +927,7 @@ public class PlayActivity extends AppCompatActivity {
 
         int counter = 0;
         // Set individual card pairs to have remember face up card.
-        for (int i = 0; i < cards.size();) {
+        for (int i = 0; i < cards.size(); ) {
             cards.get(i++).image = images.get(counter);
             cards.get(i++).image = images.get(counter++);
         }
@@ -814,7 +935,17 @@ public class PlayActivity extends AppCompatActivity {
         for (Card c : cards) {
             c.getButton().setImageResource(R.drawable.card);
         }
+    }
 
+    // Check if the game is over when a match is made.
+    private void checkIfGameIsOver() {
+        numOfCards -= 2;
+        if (numOfCards == 0) {
+            saveButton.setVisibility(View.VISIBLE);
+            saveButton.setEnabled(true);
+            tryButton.setEnabled(false);
+            endButton.setEnabled(false);
+        }
     }
 
     public static Intent newIntent(Context packageContext) {
