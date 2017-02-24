@@ -1,6 +1,5 @@
 package holay.team.memorycards;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,15 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,13 +28,16 @@ public class PlayActivity extends AppCompatActivity {
 
     // Global Declarations
     private int numOfCards;
-    private TextView score;
     private int scoreNumber = 0;
+    private TextView score;
     private Button endButton;
     private Button tryButton;
     private Button giveUpButton;
-    private ImageButton soundButton;
     private Button saveButton;
+    private ImageButton soundButton;
+    private ArrayList<Card> cards;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private AlertDialog.Builder adb;
     private Card card1;
     private Card card2;
     private Card card3;
@@ -65,9 +60,6 @@ public class PlayActivity extends AppCompatActivity {
     private Card card20;
     private Card selected = null;
     private Card selected2 = null;
-    private ArrayList<Card> cards;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
-    private AlertDialog.Builder adb;
 
     public PlayActivity() {
         super();
@@ -201,626 +193,101 @@ public class PlayActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+    }
 
-        card1.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card1.getButton().isEnabled() && selected2 == null) {
-                    card1.getButton().setImageResource(card1.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card1.image) {
-                            card1.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card1;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card1;
-                        card1.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
+    // Modularized onClickListener for all 20 buttons
+    public void cardOnClick(View view) {
+        Card card = null;
+        switch (view.getId()) {
+            case R.id.card1:
+                card = card1;
+                break;
+            case R.id.card2:
+                card = card2;
+                break;
+            case R.id.card3:
+                card = card3;
+                break;
+            case R.id.card4:
+                card = card4;
+                break;
+            case R.id.card5:
+                card = card5;
+                break;
+            case R.id.card6:
+                card = card6;
+                break;
+            case R.id.card7:
+                card = card7;
+                break;
+            case R.id.card8:
+                card = card8;
+                break;
+            case R.id.card9:
+                card = card9;
+                break;
+            case R.id.card10:
+                card = card10;
+                break;
+            case R.id.card11:
+                card = card11;
+                break;
+            case R.id.card12:
+                card = card12;
+                break;
+            case R.id.card13:
+                card = card13;
+                break;
+            case R.id.card14:
+                card = card14;
+                break;
+            case R.id.card15:
+                card = card15;
+                break;
+            case R.id.card16:
+                card = card16;
+                break;
+            case R.id.card17:
+                card = card17;
+                break;
+            case R.id.card18:
+                card = card18;
+                break;
+            case R.id.card19:
+                card = card19;
+                break;
+            case R.id.card20:
+                card = card20;
+                break;
+        }
 
-        card2.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card2.getButton().isEnabled() && selected2 == null) {
-                    card2.getButton().setImageResource(card2.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card2.image) {
-                            card2.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card2;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card2;
-                        card2.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
+        ImageButton cardButton = card.getButton();
 
-        card3.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card3.getButton().isEnabled() && selected2 == null) {
-                    card3.getButton().setImageResource(card3.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card3.image) {
-                            card3.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card3;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card3;
-                        card3.getButton().setEnabled(false);
+        // Check if 0 or 1 cards have been selected
+        if (cardButton.isEnabled() && selected2 == null) {
+            cardButton.setImageResource(card.image);
+            // 2 Cards will be selected.
+            if (selected != null) {
+                // A match will disable both cards
+                if (selected.image == card.image) {
+                    cardButton.setEnabled(false);
+                    selected = null;
+                    scoreNumber += 2;
+                    score.setText("Score: " + scoreNumber);
+                    checkIfGameIsOver();
+                } else {
+                    if (scoreNumber != 0) {
+                        scoreNumber += -1;
+                        score.setText("Score: " + scoreNumber);
                     }
+                    selected2 = card;
                 }
+            } else {
+                // Otherwise this is the first pick
+                selected = card;
+                cardButton.setEnabled(false);
             }
-        });
-
-        card4.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card4.getButton().isEnabled() && selected2 == null) {
-                    card4.getButton().setImageResource(card4.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card4.image) {
-                            card4.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card4;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card4;
-                        card4.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card5.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card5.getButton().isEnabled() && selected2 == null) {
-                    card5.getButton().setImageResource(card5.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card5.image) {
-                            card5.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card5;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card5;
-                        card5.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card6.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card6.getButton().isEnabled() && selected2 == null) {
-                    card6.getButton().setImageResource(card6.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card6.image) {
-                            card6.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card6;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card6;
-                        card6.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card7.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card7.getButton().isEnabled() && selected2 == null) {
-                    card7.getButton().setImageResource(card7.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card7.image) {
-                            card7.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card7;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card7;
-                        card7.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card8.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card8.getButton().isEnabled() && selected2 == null) {
-                    card8.getButton().setImageResource(card8.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card8.image) {
-                            card8.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card8;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card8;
-                        card8.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card9.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card9.getButton().isEnabled() && selected2 == null) {
-                    card9.getButton().setImageResource(card9.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card9.image) {
-                            card9.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card9;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card9;
-                        card9.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card10.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card10.getButton().isEnabled() && selected2 == null) {
-                    card10.getButton().setImageResource(card10.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card10.image) {
-                            card10.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card10;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card10;
-                        card10.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card11.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card11.getButton().isEnabled() && selected2 == null) {
-                    card11.getButton().setImageResource(card11.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card11.image) {
-                            card11.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card11;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card11;
-                        card11.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card12.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card12.getButton().isEnabled() && selected2 == null) {
-                    card12.getButton().setImageResource(card12.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card12.image) {
-                            card12.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card12;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card12;
-                        card12.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card13.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card13.getButton().isEnabled() && selected2 == null) {
-                    card13.getButton().setImageResource(card13.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card13.image) {
-                            card13.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card13;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card13;
-                        card13.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card14.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card14.getButton().isEnabled() && selected2 == null) {
-                    card14.getButton().setImageResource(card14.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card14.image) {
-                            card14.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card14;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card14;
-                        card14.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card15.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card15.getButton().isEnabled() && selected2 == null) {
-                    card15.getButton().setImageResource(card15.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card15.image) {
-                            card15.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card15;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card15;
-                        card15.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card16.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card16.getButton().isEnabled() && selected2 == null) {
-                    card16.getButton().setImageResource(card16.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card16.image) {
-                            card16.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card16;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card16;
-                        card16.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card17.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card17.getButton().isEnabled() && selected2 == null) {
-                    card17.getButton().setImageResource(card17.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card1.image) {
-                            card17.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card17;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card17;
-                        card17.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card18.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card18.getButton().isEnabled() && selected2 == null) {
-                    card18.getButton().setImageResource(card18.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card18.image) {
-                            card18.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card18;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card18;
-                        card18.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card19.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card19.getButton().isEnabled() && selected2 == null) {
-                    card19.getButton().setImageResource(card19.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card19.image) {
-                            card19.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card19;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card19;
-                        card19.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        card20.getButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if 0 or 1 cards have been selected
-                if (card20.getButton().isEnabled() && selected2 == null) {
-                    card20.getButton().setImageResource(card20.image);
-                    // 2 Cards will be selected.
-                    if (selected != null) {
-                        // A match will disable both cards
-                        if (selected.image == card20.image) {
-                            card20.getButton().setEnabled(false);
-                            selected = null;
-                            scoreNumber += 2;
-                            score.setText("Score: " + scoreNumber);
-                            checkIfGameIsOver();
-                        } else {
-                            if (scoreNumber != 0) {
-                                scoreNumber += -1;
-                                score.setText("Score: " + scoreNumber);
-                            }
-                            selected2 = card20;
-                        }
-                    } else {
-                        // Otherwise this is the first pick
-                        selected = card20;
-                        card20.getButton().setEnabled(false);
-                    }
-                }
-            }
-        });
+        }
     }
 
     private void saveScore(int score, String name) {
@@ -829,7 +296,7 @@ public class PlayActivity extends AppCompatActivity {
             // Grab the 2 previous highest scores.
             FileReader fr = new FileReader(getFilesDir().toString() + "/highscores.txt");
             BufferedReader br = new BufferedReader(fr);
-            String[] highest = {"000:N/A", "000:N/A", ""+(score + ":" + name)};
+            String[] highest = {"000:N/A", "000:N/A", "" + (score + ":" + name)};
             String dummy = br.readLine();
             int i = 0;
             while (dummy != null && i != 2) {
@@ -874,8 +341,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    // Assign randomly 10 images to the pairs of 20
     public void setCards() {
-        // 10 Images here
         ArrayList<Integer> images = new ArrayList<Integer>();
         images.add(R.drawable.meowth);
         images.add(R.drawable.mewtwo);
@@ -931,7 +398,7 @@ public class PlayActivity extends AppCompatActivity {
             cards.get(i++).image = images.get(counter);
             cards.get(i++).image = images.get(counter++);
         }
-
+        // Set the cards face down
         for (Card c : cards) {
             c.getButton().setImageResource(R.drawable.card);
         }

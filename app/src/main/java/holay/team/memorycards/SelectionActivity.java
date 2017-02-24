@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Selection;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SelectionActivity extends AppCompatActivity {
 
@@ -22,7 +20,6 @@ public class SelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
-
 
         // Wire buttons
         mButton4 = (Button) findViewById(R.id.four_button);
@@ -39,96 +36,6 @@ public class SelectionActivity extends AppCompatActivity {
 
         title = (TextView) findViewById(R.id.title_text);
 
-        mButton4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.four_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 4;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
-        mButton6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.six_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 6;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
-        mButton8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.eight_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 8;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
-        mButton10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.ten_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 10;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
-        mButton12.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.twelve_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 12;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
-        mButton14.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.fourteen_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 14;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
-        mButton16.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.sixteen_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 16;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
-        mButton18.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.eighteen_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 18;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
-        mButton20.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SelectionActivity.this, R.string.twenty_text, Toast.LENGTH_SHORT).show();
-                numOfCards = 20;
-                continueButton.setEnabled(true);
-                title.setText(numOfCards + " Card Game");
-            }
-        });
-
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +44,44 @@ public class SelectionActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
 
+    // Modularized onclick for game selection buttons
+    public void buttonOnClick(View view) {
+        Button b = null;
+        switch (view.getId()) {
+            case R.id.four_button:
+                b = mButton4;
+                break;
+            case R.id.six_button:
+                b = mButton6;
+                break;
+            case R.id.eight_button:
+                b = mButton8;
+                break;
+            case R.id.ten_button:
+                b = mButton10;
+                break;
+            case R.id.twelve_button:
+                b = mButton12;
+                break;
+            case R.id.fourteen_button:
+                b = mButton14;
+                break;
+            case R.id.sixteen_button:
+                b = mButton16;
+                break;
+            case R.id.eighteen_button:
+                b = mButton18;
+                break;
+            case R.id.twenty_button:
+                b = mButton20;
+                break;
+        }
+
+        numOfCards = Integer.parseInt(b.getText().toString());
+        continueButton.setEnabled(true);
+        title.setText(numOfCards + " Card Game");
     }
 
     /*

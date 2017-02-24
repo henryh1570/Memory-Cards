@@ -7,14 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
 
+// A class used to load the 3 highest scores and display them.
 public class HighscoreActivity extends AppCompatActivity {
 
     private TextView highscore1;
@@ -36,13 +35,12 @@ public class HighscoreActivity extends AppCompatActivity {
         loadScores();
 
         debugButton.setOnClickListener(new View.OnClickListener() {
-            @ Override
+            @Override
             public void onClick(View v) {
                 Intent i = MainActivity.newIntent(HighscoreActivity.this);
                 startActivity(i);
             }
         });
-
     }
 
     private void loadScores() {
@@ -52,7 +50,7 @@ public class HighscoreActivity extends AppCompatActivity {
             BufferedReader br = new BufferedReader(fr);
 
             // Iterate through the file and try to get the three top scores
-            String[] scores = {"000 - N/A","000 - N/A","000 - N/A"};
+            String[] scores = {"000 - N/A", "000 - N/A", "000 - N/A"};
             String next = br.readLine();
             int i = 0;
             while (next != null && i != 3) {

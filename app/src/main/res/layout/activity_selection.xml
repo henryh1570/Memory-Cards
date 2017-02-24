@@ -27,30 +27,35 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/four_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/four_text"
             android:layout_marginRight="12dp"/>
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/six_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/six_text"
             android:layout_marginRight="12dp"/>
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/eight_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/eight_text"
             android:layout_marginRight="12dp"/>
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/ten_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/ten_text"
             android:layout_marginRight="12dp"/>
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/twelve_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
@@ -63,24 +68,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/fourteen_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="@string/fourteen_text"
             android:layout_marginRight="10dp"/>
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/sixteen_button"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:text="@string/sixteen_text"
             android:layout_marginRight="10dp"/>
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/eighteen_button"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:text="@string/eighteen_text"
             android:layout_marginRight="10dp"/>
         <Button
+            android:onClick="buttonOnClick"
             android:id="@+id/twenty_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
