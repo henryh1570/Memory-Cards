@@ -21,7 +21,8 @@
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HIGHSCORE #1"
+            android:text="000 - N/A"
+            android:textSize="48dp"
             android:textAlignment="center"
             android:gravity="center"/>
         <TextView
@@ -30,7 +31,8 @@
             android:id="@+id/high2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HIGHSCORE #2"
+            android:text="000 - N/A"
+            android:textSize="48dp"
             android:textAlignment="center"
             android:gravity="center"/>
         <TextView
@@ -39,7 +41,8 @@
             android:id="@+id/high3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HIGHSCORE #3"
+            android:text="000 - N/A"
+            android:textSize="48dp"
             android:textAlignment="center"
             android:gravity="center"/>
 
