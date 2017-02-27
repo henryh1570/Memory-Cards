@@ -13,6 +13,7 @@ public class SelectionActivity extends AppCompatActivity {
     private Button mButton4, mButton6, mButton8, mButton10, mButton12;
     private Button mButton14, mButton16, mButton18, mButton20;
     private Button continueButton;
+    private Button returnButton;
     private TextView title;
     private int numOfCards;
 
@@ -31,6 +32,7 @@ public class SelectionActivity extends AppCompatActivity {
         mButton16 = (Button) findViewById(R.id.sixteen_button);
         mButton18 = (Button) findViewById(R.id.eighteen_button);
         mButton20 = (Button) findViewById(R.id.twenty_button);
+        returnButton = (Button) findViewById(R.id.return_button);
         continueButton = (Button) findViewById(R.id.continue_button);
         continueButton.setEnabled(false);
 
@@ -41,6 +43,14 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = PlayActivity.newIntent(getApplicationContext());
                 i.putExtra("num", numOfCards);
+                startActivity(i);
+            }
+        });
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = MainActivity.newIntent(getApplicationContext());
                 startActivity(i);
             }
         });

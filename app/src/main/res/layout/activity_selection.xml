@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/bg3"
     tools:context="holay.team.memorycards.SelectionActivity">
 
     <TextView
@@ -100,6 +101,11 @@
     <Button
         android:id="@+id/continue_button"
         android:text="Continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/return_button"
+        android:text="Main Menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

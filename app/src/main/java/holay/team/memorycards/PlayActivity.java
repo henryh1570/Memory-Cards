@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class PlayActivity extends AppCompatActivity {
     private Button saveButton;
     private ImageButton soundButton;
     private ArrayList<Card> cards;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private AudioPlayer bgmPlayer = new AudioPlayer(new MediaPlayer());
     private AlertDialog.Builder adb;
     private Card card1;
     private Card card2;
@@ -102,18 +103,20 @@ public class PlayActivity extends AppCompatActivity {
         saveButton.setEnabled(false);
         setCards();
 
+        // Start new game by going back to main menu
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
+                if (bgmPlayer.isPlaying()) {
+                    bgmPlayer.stop();
                 }
-                mediaPlayer = null;
+                bgmPlayer = null;
                 Intent i = MainActivity.newIntent(PlayActivity.this);
                 startActivity(i);
             }
         });
 
+        // Reveal all cards but disallow final score
         giveUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +131,7 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
+        // Try again to reset a mismatched pair
         tryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,13 +146,15 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
+        // Play or mute the background music
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playAudio("music.mp3");
+                playAudio("music.mp3", bgmPlayer);
             }
         });
 
+        // Prompt a dialog box and allow entering a alphabetic name to save score.
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,10 +181,10 @@ public class PlayActivity extends AppCompatActivity {
                                     }
                                 }
 
-                                if (mediaPlayer.isPlaying()) {
-                                    mediaPlayer.stop();
+                                if (bgmPlayer.isPlaying()) {
+                                    bgmPlayer.stop();
                                 }
-                                mediaPlayer = null;
+                                bgmPlayer = null;
                                 saveScore(scoreNumber, editText.getText().toString());
                                 PlayActivity.this.finish();
                             }
@@ -265,6 +271,8 @@ public class PlayActivity extends AppCompatActivity {
 
         // Check if 0 or 1 cards have been selected
         if (cardButton.isEnabled() && selected2 == null) {
+            // Play sound effect
+            playAudio("click.wav", new AudioPlayer(new MediaPlayer()));
             cardButton.setImageResource(card.image);
             // 2 Cards will be selected.
             if (selected != null) {
@@ -290,6 +298,7 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    // Preserve 2 old high scores, add 1 new one and write to file
     private void saveScore(int score, String name) {
         FileOutputStream outputStream;
         try {
@@ -322,22 +331,36 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    public void playAudio(String audioFileName) {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-        } else if (mediaPlayer.getCurrentPosition() > 1) {
-            mediaPlayer.start();
+    // Load audio file from assests folder and play
+    public void playAudio(String audioFileName, AudioPlayer audioPlayer) {
+        if(audioPlayer.isPrepared() == false) {
+            prepareAudio(audioFileName, audioPlayer);
+            audioPlayer.setPrepared();
         } else {
-            try {
-                mediaPlayer.reset();
-                AssetFileDescriptor afd;
-                afd = getAssets().openFd(audioFileName);
-                mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-                mediaPlayer.prepare();
+            MediaPlayer mediaPlayer = audioPlayer.getMediaPlayer();
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+            } else if (mediaPlayer.getCurrentPosition() > 1) {
                 mediaPlayer.start();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        }
+    }
+
+    public void prepareAudio(String audioFileName, AudioPlayer audioPlayer) {
+        try {
+            MediaPlayer mediaPlayer = audioPlayer.getMediaPlayer();
+            mediaPlayer.reset();
+            AssetFileDescriptor afd;
+            afd = getAssets().openFd(audioFileName);
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                public void onPrepared(MediaPlayer mp) {
+                    mp.start();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
