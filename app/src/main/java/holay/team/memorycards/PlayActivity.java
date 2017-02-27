@@ -5,12 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
-import android.provider.MediaStore;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ public class PlayActivity extends AppCompatActivity {
     private ImageButton soundButton;
     private ArrayList<Card> cards;
     private AudioPlayer bgmPlayer = new AudioPlayer(new MediaPlayer());
+    private AudioPlayer sfxPlayer = new AudioPlayer(new MediaPlayer());
     private AlertDialog.Builder adb;
     private Card card1;
     private Card card2;
@@ -70,6 +72,11 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().hide();
+        }
+
         Intent intent = getIntent();
         numOfCards = intent.getExtras().getInt("num");
 
@@ -107,10 +114,7 @@ public class PlayActivity extends AppCompatActivity {
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bgmPlayer.isPlaying()) {
-                    bgmPlayer.stop();
-                }
-                bgmPlayer = null;
+                stopBgm();
                 Intent i = MainActivity.newIntent(PlayActivity.this);
                 startActivity(i);
             }
@@ -181,10 +185,7 @@ public class PlayActivity extends AppCompatActivity {
                                     }
                                 }
 
-                                if (bgmPlayer.isPlaying()) {
-                                    bgmPlayer.stop();
-                                }
-                                bgmPlayer = null;
+                                stopBgm();
                                 saveScore(scoreNumber, editText.getText().toString());
                                 PlayActivity.this.finish();
                             }
@@ -272,7 +273,7 @@ public class PlayActivity extends AppCompatActivity {
         // Check if 0 or 1 cards have been selected
         if (cardButton.isEnabled() && selected2 == null) {
             // Play sound effect
-            playAudio("click.wav", new AudioPlayer(new MediaPlayer()));
+            playAudio("click.wav", sfxPlayer);
             cardButton.setImageResource(card.image);
             // 2 Cards will be selected.
             if (selected != null) {
@@ -333,7 +334,7 @@ public class PlayActivity extends AppCompatActivity {
 
     // Load audio file from assests folder and play
     public void playAudio(String audioFileName, AudioPlayer audioPlayer) {
-        if(audioPlayer.isPrepared() == false) {
+        if (audioPlayer.isPrepared() == false) {
             prepareAudio(audioFileName, audioPlayer);
             audioPlayer.setPrepared();
         } else {
@@ -434,7 +435,25 @@ public class PlayActivity extends AppCompatActivity {
             saveButton.setVisibility(View.VISIBLE);
             saveButton.setEnabled(true);
             tryButton.setEnabled(false);
-            endButton.setEnabled(false);
+        }
+    }
+
+    public void stopBgm() {
+        if (bgmPlayer.isPlaying()) {
+            bgmPlayer.stop();
+        }
+        bgmPlayer = null;
+    }
+
+    // Method to Bind ancestral navigation up to the keyboard input 'up arrow'
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                stopBgm();
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onKeyUp(keyCode, event);
         }
     }
 

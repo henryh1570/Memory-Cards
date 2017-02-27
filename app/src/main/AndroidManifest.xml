@@ -17,13 +17,16 @@
         </activity>
         <activity
             android:name=".SelectionActivity"
-            android:label="SelectionActivity"/>
+            android:label="SelectionActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".PlayActivity"
-            android:label="PlayActivity"></activity>
+            android:label="PlayActivity"
+            android:parentActivityName=".SelectionActivity"></activity>
         <activity
             android:name=".HighscoreActivity"
-            android:label="HighscoreActivity"></activity>
+            android:label="HighscoreActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

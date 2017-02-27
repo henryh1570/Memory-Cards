@@ -2,10 +2,7 @@ package holay.team.memorycards;
 
 import android.media.MediaPlayer;
 
-/**
- * Created by hh on 2/26/17.
- */
-
+// A class only for making sure mediaplayer is prepared
 public class AudioPlayer {
     private MediaPlayer mp;
     private boolean isPrepared = false;

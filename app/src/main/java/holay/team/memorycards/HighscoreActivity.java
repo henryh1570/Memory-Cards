@@ -3,7 +3,9 @@ package holay.team.memorycards;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,7 +27,10 @@ public class HighscoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highscore);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().hide();
+        }
         // Wire components
         highscore1 = (TextView) findViewById(R.id.high1);
         highscore2 = (TextView) findViewById(R.id.high2);
@@ -72,6 +77,17 @@ public class HighscoreActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    // Method to Bind ancestral navigation up to the keyboard input 'up arrow'
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onKeyUp(keyCode, event);
         }
     }
 
