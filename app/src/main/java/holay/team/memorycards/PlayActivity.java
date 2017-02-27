@@ -39,7 +39,6 @@ public class PlayActivity extends AppCompatActivity {
     private ImageButton soundButton;
     private ArrayList<Card> cards;
     private MediaPlayer bgmPlayer = new MediaPlayer();
-    private MediaPlayer sfxPlayer = new MediaPlayer();
     private AlertDialog.Builder adb;
     private Card card1;
     private Card card2;
@@ -108,7 +107,6 @@ public class PlayActivity extends AppCompatActivity {
         saveButton.setVisibility(View.INVISIBLE);
         saveButton.setEnabled(false);
         prepareAudio("music.mp3", bgmPlayer);
-        prepareAudio("click.wav", sfxPlayer);
         setCards();
 
         // Start new game by going back to main menu
@@ -270,11 +268,10 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         ImageButton cardButton = card.getButton();
+        int sound = R.raw.click;
 
         // Check if 0 or 1 cards have been selected
         if (cardButton.isEnabled() && selected2 == null) {
-            // Play sound effect
-            playAudio(sfxPlayer);
             cardButton.setImageResource(card.image);
             // 2 Cards will be selected.
             if (selected != null) {
@@ -284,12 +281,14 @@ public class PlayActivity extends AppCompatActivity {
                     selected = null;
                     scoreNumber += 2;
                     score.setText("Score: " + scoreNumber);
+                    sound = R.raw.success;
                     checkIfGameIsOver();
                 } else {
                     if (scoreNumber != 0) {
                         scoreNumber += -1;
                         score.setText("Score: " + scoreNumber);
                     }
+                    sound = R.raw.wrong;
                     selected2 = card;
                 }
             } else {
@@ -297,7 +296,15 @@ public class PlayActivity extends AppCompatActivity {
                 selected = card;
                 cardButton.setEnabled(false);
             }
+            playSFX(sound);
         }
+
+    }
+
+    // Sound found in RAW folder. Play sound effects.
+    public void playSFX(int sound) {
+        MediaPlayer mp = MediaPlayer.create(PlayActivity.this, sound);
+        mp.start();
     }
 
     // Preserve 2 old high scores, add 1 new one and write to file
@@ -350,13 +357,6 @@ public class PlayActivity extends AppCompatActivity {
             afd = getAssets().openFd(audioFileName);
             mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             mp.prepareAsync();
-            /*
-            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                public void onPrepared(MediaPlayer mp) {
-                    mp.start();
-                }
-            });
-            */
         } catch (Exception e) {
             e.printStackTrace();
         }
