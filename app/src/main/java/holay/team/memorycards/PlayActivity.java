@@ -38,8 +38,8 @@ public class PlayActivity extends AppCompatActivity {
     private Button saveButton;
     private ImageButton soundButton;
     private ArrayList<Card> cards;
-    private AudioPlayer bgmPlayer = new AudioPlayer(new MediaPlayer());
-    private AudioPlayer sfxPlayer = new AudioPlayer(new MediaPlayer());
+    private MediaPlayer bgmPlayer = new MediaPlayer();
+    private MediaPlayer sfxPlayer = new MediaPlayer();
     private AlertDialog.Builder adb;
     private Card card1;
     private Card card2;
@@ -79,7 +79,6 @@ public class PlayActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         numOfCards = intent.getExtras().getInt("num");
-
         score = (TextView) findViewById(R.id.score);
         endButton = (Button) findViewById(R.id.debugButton);
         tryButton = (Button) findViewById(R.id.tryButton);
@@ -108,6 +107,8 @@ public class PlayActivity extends AppCompatActivity {
         card20 = new Card(0, (ImageButton) findViewById(R.id.card20));
         saveButton.setVisibility(View.INVISIBLE);
         saveButton.setEnabled(false);
+        prepareAudio("music.mp3", bgmPlayer);
+        prepareAudio("click.wav", sfxPlayer);
         setCards();
 
         // Start new game by going back to main menu
@@ -154,7 +155,7 @@ public class PlayActivity extends AppCompatActivity {
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playAudio("music.mp3", bgmPlayer);
+                playAudio(bgmPlayer);
             }
         });
 
@@ -273,7 +274,7 @@ public class PlayActivity extends AppCompatActivity {
         // Check if 0 or 1 cards have been selected
         if (cardButton.isEnabled() && selected2 == null) {
             // Play sound effect
-            playAudio("click.wav", sfxPlayer);
+            playAudio(sfxPlayer);
             cardButton.setImageResource(card.image);
             // 2 Cards will be selected.
             if (selected != null) {
@@ -333,33 +334,29 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     // Load audio file from assests folder and play
-    public void playAudio(String audioFileName, AudioPlayer audioPlayer) {
-        if (audioPlayer.isPrepared() == false) {
-            prepareAudio(audioFileName, audioPlayer);
-            audioPlayer.setPrepared();
+    public void playAudio(MediaPlayer mp) {
+        if (mp.isPlaying()) {
+            mp.pause();
         } else {
-            MediaPlayer mediaPlayer = audioPlayer.getMediaPlayer();
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.pause();
-            } else if (mediaPlayer.getCurrentPosition() > 1) {
-                mediaPlayer.start();
-            }
+            mp.start();
         }
     }
 
-    public void prepareAudio(String audioFileName, AudioPlayer audioPlayer) {
+    // Necessary to prevent mediaplayer error code (-38, 0)
+    public void prepareAudio(String audioFileName, MediaPlayer mp) {
         try {
-            MediaPlayer mediaPlayer = audioPlayer.getMediaPlayer();
-            mediaPlayer.reset();
+            mp.reset();
             AssetFileDescriptor afd;
             afd = getAssets().openFd(audioFileName);
-            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mp.prepareAsync();
+            /*
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 public void onPrepared(MediaPlayer mp) {
                     mp.start();
                 }
             });
+            */
         } catch (Exception e) {
             e.printStackTrace();
         }
