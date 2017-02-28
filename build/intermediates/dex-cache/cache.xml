@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="06b9e0525d79d18187faedc56dba1de06cab0337">
+        sha1="2a4d06b5712413011063b500d3276141c0b90ccb">
         <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c98735e64366c8ecc665ed057bdb702900abd834/classes.dex" />
     </item>
     <item
@@ -97,7 +97,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="da642c77afda62ad159b0dc1584b5e3154410501">
+        sha1="bd8a843e77d204aa0d6adad7a06728a1405f7438">
         <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_53ef619ee0bbd416da998f509479df86b058e933/classes.dex" />
     </item>
     <item

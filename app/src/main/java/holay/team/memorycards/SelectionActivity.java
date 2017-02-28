@@ -63,6 +63,20 @@ public class SelectionActivity extends AppCompatActivity {
         });
     }
 
+    // Store all values as Key-Pair to save on rotation
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt("num", numOfCards);
+        savedInstanceState.putBoolean("isEnabled", continueButton.isEnabled());
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    // Retrieve all values needed to store the rotated state
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        numOfCards = savedInstanceState.getInt("num");
+        continueButton.setEnabled(savedInstanceState.getBoolean("isEnabled"));
+    }
+
     // Modularized onclick for game selection buttons
     public void buttonOnClick(View view) {
         Button b = null;

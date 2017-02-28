@@ -29,7 +29,8 @@ import java.util.Collections;
 public class PlayActivity extends AppCompatActivity {
 
     // Global Declarations
-    private int numOfCards;
+    private int totalCards;
+    private int remainingCards;
     private int scoreNumber = 0;
     private TextView score;
     private Button endButton;
@@ -77,37 +78,9 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
-        numOfCards = intent.getExtras().getInt("num");
-        score = (TextView) findViewById(R.id.score);
-        endButton = (Button) findViewById(R.id.debugButton);
-        tryButton = (Button) findViewById(R.id.tryButton);
-        giveUpButton = (Button) findViewById(R.id.giveUpButton);
-        soundButton = (ImageButton) findViewById(R.id.soundButton);
-        saveButton = (Button) findViewById(R.id.saveScoreButton);
-        card1 = new Card(0, (ImageButton) findViewById(R.id.card1));
-        card2 = new Card(0, (ImageButton) findViewById(R.id.card2));
-        card3 = new Card(0, (ImageButton) findViewById(R.id.card3));
-        card4 = new Card(0, (ImageButton) findViewById(R.id.card4));
-        card5 = new Card(0, (ImageButton) findViewById(R.id.card5));
-        card6 = new Card(0, (ImageButton) findViewById(R.id.card6));
-        card7 = new Card(0, (ImageButton) findViewById(R.id.card7));
-        card8 = new Card(0, (ImageButton) findViewById(R.id.card8));
-        card9 = new Card(0, (ImageButton) findViewById(R.id.card9));
-        card10 = new Card(0, (ImageButton) findViewById(R.id.card10));
-        card11 = new Card(0, (ImageButton) findViewById(R.id.card11));
-        card12 = new Card(0, (ImageButton) findViewById(R.id.card12));
-        card13 = new Card(0, (ImageButton) findViewById(R.id.card13));
-        card14 = new Card(0, (ImageButton) findViewById(R.id.card14));
-        card15 = new Card(0, (ImageButton) findViewById(R.id.card15));
-        card16 = new Card(0, (ImageButton) findViewById(R.id.card16));
-        card17 = new Card(0, (ImageButton) findViewById(R.id.card17));
-        card18 = new Card(0, (ImageButton) findViewById(R.id.card18));
-        card19 = new Card(0, (ImageButton) findViewById(R.id.card19));
-        card20 = new Card(0, (ImageButton) findViewById(R.id.card20));
-        saveButton.setVisibility(View.INVISIBLE);
-        saveButton.setEnabled(false);
-        prepareAudio("music.mp3", bgmPlayer);
-        setCards();
+        totalCards = intent.getExtras().getInt("num");
+        remainingCards = totalCards;
+        instantiate(false);
 
         // Start new game by going back to main menu
         endButton.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +174,137 @@ public class PlayActivity extends AppCompatActivity {
         });
     }
 
+    // Store all values as Key-Pair to save on rotation
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt("totalCards", totalCards);
+        savedInstanceState.putInt("remainingCards", remainingCards);
+        savedInstanceState.putInt("score", scoreNumber);
+
+        // Storing card data.
+        for (int i = 0; i < cards.size(); i++) {
+            // Store the image
+            Card card = cards.get(i);
+            String key = ("card" + (i + 1) + "Image");
+            int value = card.image;
+            savedInstanceState.putInt(key, value);
+
+            // Store the enabled status
+            key = ("card" + (i + 1) + "Enabled");
+            savedInstanceState.putBoolean(key, card.getButton().isEnabled());
+        }
+
+        // Selected pointers are saved
+        if (selected != null) {
+            savedInstanceState.putInt("selectedCard", selected.getButton().getId());
+            if (selected2 != null) {
+                savedInstanceState.putInt("selected2Card", selected2.getButton().getId());
+            } else {
+                savedInstanceState.putInt("selected2Card", -1);
+            }
+        } else {
+            savedInstanceState.putInt("selectedCard", -1);
+            savedInstanceState.putInt("selected2Card", -1);
+        }
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    // Retrieve all values needed to store the rotated state
+    // Setup everything again.
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        totalCards = savedInstanceState.getInt("totalCards");
+        remainingCards = savedInstanceState.getInt("remainingCards");
+        scoreNumber = savedInstanceState.getInt("score");
+        score.setText("Score: " + scoreNumber);
+        instantiate(true);
+
+        // Set enabled status and images of cards
+        for (int i = 0; i < cards.size(); i++) {
+            Card card = cards.get(i);
+            card.image = savedInstanceState.getInt("card" + (i + 1) + "Image");
+            card.getButton().setEnabled(savedInstanceState.getBoolean("card" + (i + 1) + "Enabled"));
+        }
+
+        // Set the card pointers on rotate.
+        int selectedNum = savedInstanceState.getInt("selectedCard");
+        int selected2Num = savedInstanceState.getInt("selected2Card");
+        selected = instantiateSelected(selectedNum);
+        selected2 = instantiateSelected(selected2Num);
+
+        // Redraw the cards
+        for (Card card : cards) {
+            ImageButton imageButton = card.getButton();
+            // If the card is selected
+            if (imageButton.equals(selected) || imageButton.equals(selected2)) {
+                Log.d("TURN UP : ", "MEEEEEEEEEEEEEEE");
+                imageButton.setImageResource(card.image);
+            } else if (imageButton.isEnabled()) {
+                // If the card is face-down
+                Log.d("TURN MID : ", "MEEEEEEEEEEEEEEE");
+                imageButton.setImageResource(R.drawable.card);
+            } else {
+                Log.d("TURN DOWN : ", "MEEEEEEEEEEEEEEE");
+                // Otherwise the card must be matched face up
+                imageButton.setImageResource(card.image);
+            }
+        }
+    }
+
+    // Set the card pointers on rotate.
+    public Card instantiateSelected(int num) {
+        Card ptr = null;
+        int i = 0;
+        if (num != -1) {
+            while(ptr == null && i < cards.size()) {
+                if (num == cards.get(i).getButton().getId()) {
+                    ptr = cards.get(i);
+                } else {
+                    i++;
+                }
+            }
+        }
+        return ptr;
+    }
+
+    // Sets up wiring for buttons and textviews
+    // Used in onCreate and rotation resume
+    public void instantiate(boolean onRotate) {
+        score = (TextView) findViewById(R.id.score);
+        endButton = (Button) findViewById(R.id.debugButton);
+        tryButton = (Button) findViewById(R.id.tryButton);
+        giveUpButton = (Button) findViewById(R.id.giveUpButton);
+        soundButton = (ImageButton) findViewById(R.id.soundButton);
+        saveButton = (Button) findViewById(R.id.saveScoreButton);
+        card1 = new Card(0, (ImageButton) findViewById(R.id.card1));
+        card2 = new Card(0, (ImageButton) findViewById(R.id.card2));
+        card3 = new Card(0, (ImageButton) findViewById(R.id.card3));
+        card4 = new Card(0, (ImageButton) findViewById(R.id.card4));
+        card5 = new Card(0, (ImageButton) findViewById(R.id.card5));
+        card6 = new Card(0, (ImageButton) findViewById(R.id.card6));
+        card7 = new Card(0, (ImageButton) findViewById(R.id.card7));
+        card8 = new Card(0, (ImageButton) findViewById(R.id.card8));
+        card9 = new Card(0, (ImageButton) findViewById(R.id.card9));
+        card10 = new Card(0, (ImageButton) findViewById(R.id.card10));
+        card11 = new Card(0, (ImageButton) findViewById(R.id.card11));
+        card12 = new Card(0, (ImageButton) findViewById(R.id.card12));
+        card13 = new Card(0, (ImageButton) findViewById(R.id.card13));
+        card14 = new Card(0, (ImageButton) findViewById(R.id.card14));
+        card15 = new Card(0, (ImageButton) findViewById(R.id.card15));
+        card16 = new Card(0, (ImageButton) findViewById(R.id.card16));
+        card17 = new Card(0, (ImageButton) findViewById(R.id.card17));
+        card18 = new Card(0, (ImageButton) findViewById(R.id.card18));
+        card19 = new Card(0, (ImageButton) findViewById(R.id.card19));
+        card20 = new Card(0, (ImageButton) findViewById(R.id.card20));
+        saveButton.setVisibility(View.INVISIBLE);
+        saveButton.setEnabled(false);
+        prepareAudio("music.mp3", bgmPlayer);
+        if (onRotate == false) {
+            setCards();
+        } else {
+            populateCardsList();
+        }
+    }
+
     // Modularized onClickListener for all 20 buttons
     public void cardOnClick(View view) {
         Card card = null;
@@ -273,29 +377,30 @@ public class PlayActivity extends AppCompatActivity {
         // Check if 0 or 1 cards have been selected
         if (cardButton.isEnabled() && selected2 == null) {
             cardButton.setImageResource(card.image);
-            // 2 Cards will be selected.
+            // Picking card 2
             if (selected != null) {
-                // A match will disable both cards
-                if (selected.image == card.image) {
-                    cardButton.setEnabled(false);
+                selected2 = card;
+                // A match
+                if (selected2.image == selected.image) {
                     selected = null;
+                    selected2 = null;
                     scoreNumber += 2;
                     score.setText("Score: " + scoreNumber);
                     sound = R.raw.success;
                     checkIfGameIsOver();
                 } else {
+                    // A failed match
                     if (scoreNumber != 0) {
                         scoreNumber += -1;
                         score.setText("Score: " + scoreNumber);
                     }
                     sound = R.raw.wrong;
-                    selected2 = card;
                 }
             } else {
-                // Otherwise this is the first pick
+                // Otherwise this is picking card 1
                 selected = card;
-                cardButton.setEnabled(false);
             }
+            cardButton.setEnabled(false);
             playSFX(sound);
         }
 
@@ -333,6 +438,22 @@ public class PlayActivity extends AppCompatActivity {
             }
             fr.close();
             br.close();
+            osw.close();
+            outputStream.close();
+        } catch (Exception e) {
+            firstTimeSave(name);
+            saveScore(score, name);
+        }
+    }
+
+    // Initialize the file.
+    public void firstTimeSave(String name) {
+        try {
+            FileOutputStream outputStream;
+            // Write in the previous 2 highest scores plus the new one.
+            outputStream = openFileOutput("highscores.txt", Context.MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(outputStream);
+            osw.write("");
             osw.close();
             outputStream.close();
         } catch (Exception e) {
@@ -377,8 +498,24 @@ public class PlayActivity extends AppCompatActivity {
         images.add(R.drawable.gyrados);
         Collections.shuffle(images);
 
-        cards = new ArrayList<Card>();
+        populateCardsList();
 
+        Collections.shuffle(cards);
+
+        int counter = 0;
+        // Set individual card pairs to have remember face up card.
+        for (int i = 0; i < cards.size(); ) {
+            cards.get(i++).image = images.get(counter);
+            cards.get(i++).image = images.get(counter++);
+        }
+        // Set the cards face down
+        for (Card c : cards) {
+            c.getButton().setImageResource(R.drawable.card);
+        }
+    }
+
+    public void populateCardsList() {
+        cards = new ArrayList<Card>();
         cards.add(card1);
         cards.add(card2);
         cards.add(card3);
@@ -399,39 +536,21 @@ public class PlayActivity extends AppCompatActivity {
         cards.add(card18);
         cards.add(card19);
         cards.add(card20);
-
         // Remove the unused cards
-        while (cards.size() != numOfCards) {
+        while (cards.size() != totalCards) {
             cards.get(cards.size() - 1).getButton().setVisibility(View.GONE);
             cards.remove(cards.size() - 1);
-        }
-
-        Collections.shuffle(cards);
-
-        // Set face down card image.
-        for (Card c : cards) {
-            c.getButton().setImageResource(R.drawable.card);
-        }
-
-        int counter = 0;
-        // Set individual card pairs to have remember face up card.
-        for (int i = 0; i < cards.size(); ) {
-            cards.get(i++).image = images.get(counter);
-            cards.get(i++).image = images.get(counter++);
-        }
-        // Set the cards face down
-        for (Card c : cards) {
-            c.getButton().setImageResource(R.drawable.card);
         }
     }
 
     // Check if the game is over when a match is made.
     private void checkIfGameIsOver() {
-        numOfCards -= 2;
-        if (numOfCards == 0) {
+        remainingCards -= 2;
+        if (remainingCards <= 0) {
             saveButton.setVisibility(View.VISIBLE);
             saveButton.setEnabled(true);
             tryButton.setEnabled(false);
+            giveUpButton.setEnabled(false);
         }
     }
 
