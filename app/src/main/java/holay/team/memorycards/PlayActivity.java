@@ -3,7 +3,6 @@ package holay.team.memorycards;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
@@ -64,7 +63,8 @@ public class PlayActivity extends AppCompatActivity {
     private ArrayList<Card> listOfCards;
     private ArrayList<Integer> listOfSolvedCards;
     private ArrayList<Integer> listOfUsedImages;
-    private MediaPlayer bgmPlayer = new MediaPlayer();
+    private AudioPlayer bgmPlayer;
+    private AudioPlayer sfxPlayer;
     private AlertDialog.Builder adb;
 
     public PlayActivity() {
@@ -113,6 +113,7 @@ public class PlayActivity extends AppCompatActivity {
                 cardPtr2 = null;
                 giveUpButton.setEnabled(false);
                 tryButton.setEnabled(false);
+                playSFX(R.raw.failure);
             }
         });
 
@@ -127,6 +128,7 @@ public class PlayActivity extends AppCompatActivity {
                     cardPtr2.getButton().setEnabled(true);
                     cardPtr2.getButton().setImageResource(R.drawable.card);
                     cardPtr2 = null;
+                    playSFX(R.raw.tryagain);
                 }
             }
         });
@@ -135,7 +137,13 @@ public class PlayActivity extends AppCompatActivity {
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playAudio(bgmPlayer);
+                if (!bgmPlayer.isPlaying() && bgmPlayer.getPosition() <= -1) {
+                    bgmPlayer.play(PlayActivity.this);
+                } else if (bgmPlayer.isPlaying()) {
+                    bgmPlayer.pause();
+                } else {
+                    bgmPlayer.resume();
+                }
             }
         });
 
@@ -191,6 +199,21 @@ public class PlayActivity extends AppCompatActivity {
         savedInstanceState.putBoolean("tryButtonEnabled", tryButton.isEnabled());
         savedInstanceState.putBoolean("giveUpButtonEnabled", giveUpButton.isEnabled());
 
+        // Save the bgmplayer data
+        if (bgmPlayer != null) {
+            savedInstanceState.putInt("bgmPos", bgmPlayer.getPosition());
+            savedInstanceState.putBoolean("bgmplaying", bgmPlayer.isPlaying());
+            bgmPlayer.stop();
+        } else {
+            savedInstanceState.putInt("bgmPos", -1);
+            savedInstanceState.putBoolean("bgmplaying", false);
+        }
+
+        if (sfxPlayer != null && sfxPlayer.isPlaying()) {
+            sfxPlayer.stop();
+            sfxPlayer = null;
+        }
+
         // Store all cards by their images
         for (int i = 0; i < listOfCards.size(); i++) {
             Card card = listOfCards.get(i);
@@ -232,6 +255,18 @@ public class PlayActivity extends AppCompatActivity {
         giveUpButton.setEnabled(savedInstanceState.getBoolean("giveUpButtonEnabled"));
         instantiateVariables(true);
 
+        int pos = savedInstanceState.getInt("bgmPos");
+
+        // Check if the bgmplayer was playing and set it back to where it left off.
+        if (pos > -1) {
+            bgmPlayer.play(PlayActivity.this);
+            bgmPlayer.pause();
+            bgmPlayer.setPosition(pos);
+            if (savedInstanceState.getBoolean("bgmplaying")) {
+                bgmPlayer.resume();
+            }
+        }
+
         // Set the card pointers on rotate.
         int selectedNum = savedInstanceState.getInt("selectedCard");
         int selected2Num = savedInstanceState.getInt("selected2Card");
@@ -272,7 +307,7 @@ public class PlayActivity extends AppCompatActivity {
     // Sets up wiring for buttons and textviews
     // Used in onCreate and rotation resume
     private void instantiateVariables(boolean onRotate) {
-        prepareAudio("music.mp3", bgmPlayer);
+        //prepareAudio("music.mp3", bgmPlayer);
         scoreText = (TextView) findViewById(R.id.score);
         endButton = (Button) findViewById(R.id.debugButton);
         tryButton = (Button) findViewById(R.id.tryButton);
@@ -301,6 +336,7 @@ public class PlayActivity extends AppCompatActivity {
         card20 = new Card(0, (ImageButton) findViewById(R.id.card20));
 
         listOfSolvedCards = new ArrayList<Integer>();
+        bgmPlayer = new AudioPlayer(R.raw.music);
 
         // Show save button only when game completed.
         if (numOfremainingCards != 0) {
@@ -521,39 +557,33 @@ public class PlayActivity extends AppCompatActivity {
         return ptr;
     }
 
-    // Necessary to prevent mediaplayer error codes
-    private void prepareAudio(String audioFileName, MediaPlayer mp) {
-        try {
-            mp.reset();
-            AssetFileDescriptor afd;
-            afd = getAssets().openFd(audioFileName);
-            mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-            mp.prepareAsync();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     // Sound found in RAW folder. Creates a new MediaPlayer each call.
     private void playSFX(int sound) {
-        MediaPlayer mp = MediaPlayer.create(PlayActivity.this, sound);
-        mp.start();
+        if (sfxPlayer != null && sfxPlayer.isPlaying()) {
+            sfxPlayer.stop();
+        }
+        sfxPlayer = new AudioPlayer(sound);
+        sfxPlayer.play(PlayActivity.this);
     }
 
     // Load audio file from assets folder and play
-    private void playAudio(MediaPlayer mp) {
-        if (mp.isPlaying()) {
-            mp.pause();
+    private void playAudio(MediaPlayer ap) {
+        if (ap.isPlaying()) {
+            ap.pause();
         } else {
-            mp.start();
+            ap.start();
         }
     }
 
     private void stopBgm() {
-        if (bgmPlayer.isPlaying()) {
+        if (bgmPlayer != null) {
             bgmPlayer.stop();
+            bgmPlayer = null;
         }
-        bgmPlayer = null;
+        if (sfxPlayer != null) {
+            sfxPlayer.stop();
+            sfxPlayer = null;
+        }
     }
 
     // Check if the game is over when a match is made.

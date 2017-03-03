@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="56bcea6c4655a950a26e5351edc29a48031ab60f">
+        sha1="e6b8bcb28716cab245ad7b9d5fc5db826c767f3a">
         <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c98735e64366c8ecc665ed057bdb702900abd834/classes.dex" />
     </item>
     <item
@@ -39,6 +39,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_e00b99b16918dbd496b9234f0d667ea7a70f8ea4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/hh/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
         jumboMode="true"
         optimize="true"
@@ -54,6 +63,24 @@
         revision="25.0.2"
         sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
         <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_27930e91d78b8908a3d76f54ee4d53be21a0cc6d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="27882704db6df0d6143466c7c10acec61215929b">
+        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_53ef619ee0bbd416da998f509479df86b058e933/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_e8e8428b24258ac85bd9fd569a224fd4a85c7075/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -81,33 +108,6 @@
         revision="25.0.2"
         sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
         <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.1_d2c804d46bf0dcf71d98ff20d22086a904c5ef9c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_e00b99b16918dbd496b9234f0d667ea7a70f8ea4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="4856e19b1d4ea76969b7f1ae283cff276ca907a2">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_53ef619ee0bbd416da998f509479df86b058e933/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_e8e8428b24258ac85bd9fd569a224fd4a85c7075/classes.dex" />
     </item>
 
 </items>
