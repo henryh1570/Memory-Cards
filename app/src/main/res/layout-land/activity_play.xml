@@ -11,37 +11,48 @@
     android:background="@drawable/bg2"
     tools:context="holay.team.memorycards.PlayActivity">
 
-
-
-    <Button
-        android:id="@+id/debugButton"
-        android:text="New Game"
+    <LinearLayout
+        android:layout_toRightOf="@+id/row1"
+        android:id="@+id/tools"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/tryButton"
-        android:text="Try again"
-        android:layout_toRightOf="@id/debugButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/giveUpButton"
-        android:text="End Game"
-        android:layout_toRightOf="@id/tryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/debugButton"
+            android:text="New Game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <ImageButton
-        android:id="@+id/soundButton"
-        android:background="@drawable/sound"
-        android:layout_toRightOf="@id/giveUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/tryButton"
+            android:text="Try again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/giveUpButton"
+            android:text="End Game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/saveScoreButton"
+            android:layout_below="@id/row5"
+            android:layout_toRightOf="@+id/score"
+            android:text="Save Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/soundButton"
+            android:background="@drawable/sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/row1"
-        android:layout_below="@+id/debugButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -65,14 +76,6 @@
             android:id="@+id/card4"
             android:layout_width="56dp"
             android:layout_height="82dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/row2"
-        android:layout_below="@+id/row1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
         <ImageButton
             android:onClick="cardOnClick"
             android:id="@+id/card5"
@@ -96,10 +99,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/row3"
-        android:layout_below="@+id/row2"
+        android:id="@+id/row2"
+        android:layout_below="@+id/row1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageButton
             android:onClick="cardOnClick"
@@ -121,14 +125,6 @@
             android:id="@+id/card12"
             android:layout_width="56dp"
             android:layout_height="82dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/row4"
-        android:layout_below="@+id/row3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
         <ImageButton
             android:onClick="cardOnClick"
             android:id="@+id/card13"
@@ -149,11 +145,12 @@
             android:id="@+id/card16"
             android:layout_width="56dp"
             android:layout_height="82dp" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/row5"
-        android:layout_below="@+id/row4"
+        android:id="@+id/row3"
+        android:layout_below="@+id/row2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -177,22 +174,16 @@
             android:id="@+id/card20"
             android:layout_width="56dp"
             android:layout_height="82dp" />
+
     </LinearLayout>
 
     <TextView
         android:id="@+id/score"
-        android:layout_below="@+id/row5"
+        android:layout_below="@+id/row2"
+        android:layout_toRightOf="@+id/row3"
         android:textSize="48dp"
         android:textColor="#25A983"
         android:text="Score: 0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/saveScoreButton"
-        android:layout_below="@id/row5"
-        android:layout_toRightOf="@+id/score"
-        android:text="Save Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

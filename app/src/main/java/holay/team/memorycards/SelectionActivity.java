@@ -45,6 +45,7 @@ public class SelectionActivity extends AppCompatActivity {
 
         title = (TextView) findViewById(R.id.title_text);
 
+        // Start play activity
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +55,7 @@ public class SelectionActivity extends AppCompatActivity {
             }
         });
 
+        // Return to Menu Screen
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +76,7 @@ public class SelectionActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numOfCards = savedInstanceState.getInt("num");
+        title.setText(numOfCards + " Card Game");
         continueButton.setEnabled(savedInstanceState.getBoolean("isEnabled"));
     }
 
@@ -123,7 +126,7 @@ public class SelectionActivity extends AppCompatActivity {
         return i;
     }
 
-    // Method to Bind ancestral navigation up to the keyboard input 'up arrow'
+    // Bind ancestral navigation up to the keyboard input 'up arrow'
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:

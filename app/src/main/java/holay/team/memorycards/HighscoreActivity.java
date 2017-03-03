@@ -80,7 +80,7 @@ public class HighscoreActivity extends AppCompatActivity {
         }
     }
 
-    // Method to Bind ancestral navigation up to the keyboard input 'up arrow'
+    // Bind ancestral navigation up to the keyboard input 'up arrow'
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:
