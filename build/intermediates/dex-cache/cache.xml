@@ -3,111 +3,111 @@
 
     <item
         is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e6b8bcb28716cab245ad7b9d5fc5db826c767f3a">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c98735e64366c8ecc665ed057bdb702900abd834/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.1_364f633d3ecb00c47cca1f1862654894f9033bdc/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.1_1cedceba6555fa04953898e479e968aee7c38f21/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_a9f66641c447fb3da957c3be79a10399cb7f7aa1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_e00b99b16918dbd496b9234f0d667ea7a70f8ea4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_4b838732bfeb727133d4a6c1be80b56ebd03c78e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_27930e91d78b8908a3d76f54ee4d53be21a0cc6d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="27882704db6df0d6143466c7c10acec61215929b">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_53ef619ee0bbd416da998f509479df86b058e933/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_e8e8428b24258ac85bd9fd569a224fd4a85c7075/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_b252fff134ba01504542d88cc5a5d5a0084f2778/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.1_a59a65d8f76c07af33c89cde59f4c4310e0a7673/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="/home/hh/AndroidStudioProjects/MemoryCards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.1_d2c804d46bf0dcf71d98ff20d22086a904c5ef9c/classes.dex" />
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.1_191f650be4513f4ec564e423310f75157a452873/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_9504485659c5d17be1d5a2e9eb6acee7bac452e7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c6bea760e1863442b15baf8affdb2d6f3dc32941">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_62b793a84c349387e2d972691f3a45dea9eac4bb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.1_e97c6e7638ebe66d0de7a6a418688b05f7fa3d88/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_883f1284223bdd8eba7a775c499a7d503d106691/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_b17328cf77b2f96a4c7434e611926fa3ff45c4ab/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_39c1442c805d4fcf8718693f09cd8d887663704e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.1_f2b890d41d9795f5f09272d80a7db467c4f8741c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.1_6aac265f00da646dee3d1be873562ea67af8b6f8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_bbf371f9a15de9c8c2a9dddfb26340aaf1d5f08b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1f6d439c8557ead0a10dcf5dc921231430efea06">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_1ad774973a2e0102b4e46c1da9ef1a98a46e409e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_50a9b3548fece417b12441e9a604bc148284b290/classes.dex" />
     </item>
 
 </items>

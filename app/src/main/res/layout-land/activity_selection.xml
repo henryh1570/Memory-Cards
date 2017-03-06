@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/bg3"
+    android:background="@drawable/poke_background"
     tools:context="holay.team.memorycards.SelectionActivity">
 
     <TextView

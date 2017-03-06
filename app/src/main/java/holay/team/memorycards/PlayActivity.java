@@ -67,6 +67,7 @@ public class PlayActivity extends AppCompatActivity {
     private AudioPlayer sfxPlayer;
     private AlertDialog.Builder adb;
 
+
     public PlayActivity() {
         super();
     }
@@ -337,6 +338,7 @@ public class PlayActivity extends AppCompatActivity {
 
         listOfSolvedCards = new ArrayList<Integer>();
         bgmPlayer = new AudioPlayer(R.raw.music);
+//        bgmPlayer = new AudioPlayer(R.raw.pokemon_battle);
 
         // Show save button only when game completed.
         if (numOfremainingCards != 0) {
