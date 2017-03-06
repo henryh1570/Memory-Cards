@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/afternoon"
     tools:context="holay.team.memorycards.MainActivity">
 
     <Button
@@ -31,7 +32,7 @@
         android:id="@+id/title_name"
         android:layout_width="300dp"
         android:layout_height="120dp"
-        android:src="@drawable/title"
+        android:src="@drawable/concentration_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
         android:layout_marginBottom="50dp"/>
