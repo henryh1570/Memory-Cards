@@ -17,9 +17,8 @@
         android:id="@+id/selection_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:src="@drawable/choose_your_game"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="50dp"
         />
 
     <LinearLayout

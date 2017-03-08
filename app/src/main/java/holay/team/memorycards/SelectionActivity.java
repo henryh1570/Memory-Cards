@@ -98,7 +98,7 @@ public class SelectionActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numOfCards = savedInstanceState.getInt("num");
-        title.setText(numOfCards + " Card Game");
+        showCardChoice();
         continueButton.setEnabled(savedInstanceState.getBoolean("isEnabled"));
     }
     //method: onCreate
