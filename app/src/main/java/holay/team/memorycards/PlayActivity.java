@@ -151,9 +151,9 @@ public class PlayActivity extends AppCompatActivity {
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bgmPlayer.setLoop(true);
                 if (!bgmPlayer.isPlaying() && bgmPlayer.getPosition() <= -1) {
                     bgmPlayer.play(PlayActivity.this);
+                    bgmPlayer.setLoop(true);
                 } else if (bgmPlayer.isPlaying()) {
                     bgmPlayer.pause();
                 } else {
