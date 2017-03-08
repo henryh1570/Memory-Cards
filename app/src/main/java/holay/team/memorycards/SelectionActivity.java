@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SelectionActivity extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class SelectionActivity extends AppCompatActivity {
     private Button continueButton;
     private Button returnButton;
     private TextView title;
+    private ImageView mSelectionView;
     private int numOfCards;
 
 
@@ -58,9 +60,10 @@ public class SelectionActivity extends AppCompatActivity {
         mButton20 = (Button) findViewById(R.id.twenty_button);
         returnButton = (Button) findViewById(R.id.return_button);
         continueButton = (Button) findViewById(R.id.continue_button);
+        mSelectionView = (ImageView) findViewById(R.id.selection_view);
         continueButton.setEnabled(false);
 
-        title = (TextView) findViewById(R.id.title_text);
+//        title = (TextView) findViewById(R.id.title_text);
 
         // Start play activity
         continueButton.setOnClickListener(new View.OnClickListener() {
@@ -134,10 +137,44 @@ public class SelectionActivity extends AppCompatActivity {
 
         numOfCards = Integer.parseInt(b.getText().toString());
         continueButton.setEnabled(true);
-        title.setText(numOfCards + " Card Game");
+        showCardChoice();
+
+//        title.setText(numOfCards + " Card Game");
     }
 
-
+    //method: showCardChoice()
+    //purpose: Represent the number chosen with an image of the number
+    public void showCardChoice() {
+        switch(numOfCards) {
+            case 4:
+                mSelectionView.setImageResource(R.drawable.four);
+                break;
+            case 6:
+                mSelectionView.setImageResource(R.drawable.six);
+                break;
+            case 8:
+                mSelectionView.setImageResource(R.drawable.eight);
+                break;
+            case 10:
+                mSelectionView.setImageResource(R.drawable.ten);
+                break;
+            case 12:
+                mSelectionView.setImageResource(R.drawable.twelve);
+                break;
+            case 14:
+                mSelectionView.setImageResource(R.drawable.fourteen);
+                break;
+            case 16:
+                mSelectionView.setImageResource(R.drawable.sixteen);
+                break;
+            case 18:
+                mSelectionView.setImageResource(R.drawable.eighteen);
+                break;
+            case 20:
+                mSelectionView.setImageResource(R.drawable.twenty);
+                break;
+        }
+    }
     //method: onCreate
     //purpose: Method accepts a activity where it is coming from and sends them to this activity
 

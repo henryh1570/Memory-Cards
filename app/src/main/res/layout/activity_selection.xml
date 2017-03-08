@@ -13,15 +13,14 @@
     android:background="@drawable/poke_background"
     tools:context="holay.team.memorycards.SelectionActivity">
 
-    <TextView
-        android:id="@+id/title_text"
+    <ImageView
+        android:id="@+id/selection_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choose_game_text"
         android:textAlignment="center"
-        android:textSize="40sp"
+        android:src="@drawable/choose_your_game"
         android:layout_marginBottom="80dp"
-        android:textColor="@color/fontColor"/>
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"

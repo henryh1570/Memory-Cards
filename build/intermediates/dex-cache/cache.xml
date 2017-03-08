@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="787b94ff3dba75b97a478390674f4dd6eed843e0">
+        sha1="23b0e6f6472a3436749c1924640ebddde042b3ee">
         <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_62b793a84c349387e2d972691f3a45dea9eac4bb/classes.dex" />
     </item>
     <item
@@ -97,7 +97,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="4a56c20fe6da4204b7159eb3b8d6b484c0277189">
+        sha1="7d16e847331389cd42c36a9f5960cb3b8e7518a2">
         <dex dex="/Users/luis_cortes/Computer Science/CS 245/Android_App/Memory-Cards/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_1ad774973a2e0102b4e46c1da9ef1a98a46e409e/classes.dex" />
     </item>
     <item
