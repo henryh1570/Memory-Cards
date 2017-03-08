@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: PlayActivity.java
+ * author: Luis Cortes, Oscar Hernandez, Henry Hu, Y-Uyen La, and An Le
+ * class: CS 245 - Programming Graphical User Interfaces
+ *
+ * assignment: Swing Project v1.0
+ * date last modified: 2/5/2017
+ *
+ * purpose: This class handles the main screen. It allows you to see the high scores, or start a game.
+ *
+ ****************************************************************/
+
 package holay.team.memorycards;
 
 import android.content.Context;
@@ -12,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private Button mPlayButton;
     private Button mHighscoresButton;
 
+    //method: onCreate
+    //purpose: This method takes care of initializations and onclick listeners
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //method: onCreate
+    //purpose: This method allows you to change to a new activity from another one.
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, MainActivity.class);
         return i;

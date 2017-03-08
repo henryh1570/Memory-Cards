@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: PlayActivity.java
+ * author: Luis Cortes, Oscar Hernandez, Henry Hu, Y-Uyen La, and An Le
+ * class: CS 245 - Programming Graphical User Interfaces
+ *
+ * assignment: Swing Project v1.0
+ * date last modified: 2/5/2017
+ *
+ * purpose: This class allows you select the number of cards you want in a game.
+ *
+ ****************************************************************/
+
 package holay.team.memorycards;
 
 import android.content.Context;
@@ -18,6 +30,11 @@ public class SelectionActivity extends AppCompatActivity {
     private Button returnButton;
     private TextView title;
     private int numOfCards;
+
+
+    //method: onCreate
+    //purpose: This is like the main method and this is where it calls all of the other functions. It's where gameplay happens. It also sets the onClick
+    //listeners so the functions happen.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,22 +82,24 @@ public class SelectionActivity extends AppCompatActivity {
         });
     }
 
-    // Store all values as Key-Pair to save on rotation
+
+    //method: onCreate
+    //purpose: Store all values as Key-Pair to save on rotation
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt("num", numOfCards);
         savedInstanceState.putBoolean("isEnabled", continueButton.isEnabled());
         super.onSaveInstanceState(savedInstanceState);
     }
-
-    // Retrieve all values needed to store the rotated state
+    //method: onCreate
+    //purpose: Retrieve all values needed to store the rotated state. This saves the info for when you rotate, so that everything doesn't get destroyed.
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numOfCards = savedInstanceState.getInt("num");
         title.setText(numOfCards + " Card Game");
         continueButton.setEnabled(savedInstanceState.getBoolean("isEnabled"));
     }
-
-    // Modularized onclick for game selection buttons
+    //method: onCreate
+    //purposes: Modularized onclick for game selection buttons
     public void buttonOnClick(View view) {
         Button b = null;
         switch (view.getId()) {
@@ -118,15 +137,17 @@ public class SelectionActivity extends AppCompatActivity {
         title.setText(numOfCards + " Card Game");
     }
 
-    /*
-     *  Method accepts a activity where it is coming from and sends them to this activity
-     */
+
+    //method: onCreate
+    //purpose: Method accepts a activity where it is coming from and sends them to this activity
+
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, SelectionActivity.class);
         return i;
     }
 
-    // Bind ancestral navigation up to the keyboard input 'up arrow'
+    //method: onCreate
+    //purpose: Bind ancestral navigation up to the keyboard input 'up arrow'
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:

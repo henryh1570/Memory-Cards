@@ -1,3 +1,14 @@
+/***************************************************************
+ * file: PlayActivity.java
+ * author: Luis Cortes, Oscar Hernandez, Henry Hu, Y-Uyen La, and An Le
+ * class: CS 245 - Programming Graphical User Interfaces
+ *
+ * assignment: Swing Project v1.0
+ * date last modified: 2/5/2017
+ *
+ * purpose: This class handle all game logic
+ *
+ ****************************************************************/
 package holay.team.memorycards;
 
 import android.content.Context;
@@ -71,6 +82,9 @@ public class PlayActivity extends AppCompatActivity {
         super();
     }
 
+    //method: onCreate
+    //purpose: This method initializes the gameplay buttons such as "try again" , "play/mute music", "start game", "end game", etc. It also instantiates
+    //the cards with their face up images and buttons
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,7 +205,8 @@ public class PlayActivity extends AppCompatActivity {
         });
     }
 
-    // Save all important values on rotation
+    //method: onCreate
+    //purpose: Save all important values on rotation
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt("numOfTotalCards", numOfTotalCards);
         savedInstanceState.putInt("numOfremainingCards", numOfremainingCards);
@@ -244,7 +259,8 @@ public class PlayActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    // Get all important values saved and re-setup on rotation
+    //method: onCreate
+    //purpose: Get all important values saved and re-setup on rotation
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         numOfTotalCards = savedInstanceState.getInt("numOfTotalCards");
@@ -304,7 +320,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    // Sets up wiring for buttons and textviews
+    //method: onCreate
+    //purpose: Sets up wiring for buttons and textviews
     // Used in onCreate and rotation resume
     private void instantiateVariables(boolean onRotate) {
         //prepareAudio("music.mp3", bgmPlayer);
@@ -355,7 +372,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    // Listener for all 20 cards
+    //method: onCreate
+    //purpose: Listener for all 20 cards
     public void cardOnClick(View view) {
         Card card = null;
         switch (view.getId()) {
@@ -457,7 +475,8 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
-    // Assign randomly some images to card pairs
+    //method: onCreate
+    //purpose: Assign randomly some images to card pairs
     // Only called once in onCreate
     private void setCards() {
         // Pick the images used
@@ -477,7 +496,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    // Setup which cards will be used for the game and hide unused.
+    //method: onCreate
+    //purpose: Setup which cards will be used for the game and hide unused.
     private void setListOfCards() {
         listOfCards = new ArrayList<Card>();
         listOfCards.add(card1);
@@ -508,7 +528,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    // Pick the images that will be used.
+    //method: onCreate
+    //purpose: Pick the images that will be used.
     // Only called once in onCreate
     private void setListOfUsedImages() {
         listOfUsedImages = new ArrayList<Integer>();
@@ -541,7 +562,8 @@ public class PlayActivity extends AppCompatActivity {
         Collections.shuffle(listOfUsedImages);
     }
 
-    // Match the pointer with its card id
+    //method: onCreate
+    //purpose: Match the pointer with its card id
     private Card setCardPtr(int num) {
         Card ptr = null;
         int i = 0;
@@ -557,7 +579,8 @@ public class PlayActivity extends AppCompatActivity {
         return ptr;
     }
 
-    // Sound found in RAW folder. Creates a new MediaPlayer each call.
+    //method: onCreate
+    //purpose: When this is called, it spawns a new media player that will play the appropriate sound effect.
     private void playSFX(int sound) {
         if (sfxPlayer != null && sfxPlayer.isPlaying()) {
             sfxPlayer.stop();
@@ -566,15 +589,8 @@ public class PlayActivity extends AppCompatActivity {
         sfxPlayer.play(PlayActivity.this);
     }
 
-    // Load audio file from assets folder and play
-    private void playAudio(MediaPlayer ap) {
-        if (ap.isPlaying()) {
-            ap.pause();
-        } else {
-            ap.start();
-        }
-    }
-
+    //method: onCreate
+    //purpose: This method stops the bg music
     private void stopBgm() {
         if (bgmPlayer != null) {
             bgmPlayer.stop();
@@ -586,7 +602,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    // Check if the game is over when a match is made.
+    //method: onCreate
+    //purpose: This method constantly checks if the game is over when a match is made. This checks everytime you attempt a card match.
     private void gameOverAction() {
         numOfremainingCards -= 2;
         if (numOfremainingCards <= 0) {
@@ -597,7 +614,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    // Preserve 2 old high scores, add 1 new one and write to file
+    //method: onCreate
+    //purpose: This method preserves 2 old high scores, add 1 new one and write to file
     private void saveScore(int score, String name) {
         FileOutputStream outputStream;
         try {
@@ -633,7 +651,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    // Initialize the save file only once. Empty file.
+    //method: onCreate
+    //purpose: Initialize the save file only once. Empty file.
     private void saveScoreFirstTime(String name) {
         try {
             FileOutputStream outputStream;
@@ -647,7 +666,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    // Bind ancestral navigation up to the keyboard input 'up arrow'
+    //method: onCreate
+    //purpose: Bind ancestral navigation up to the keyboard input 'up arrow'
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:
@@ -659,6 +679,8 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    //method: onCreate
+    //purpose: Method accepts a activity where it is coming from and sends them to this activity
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, PlayActivity.class);
         return i;

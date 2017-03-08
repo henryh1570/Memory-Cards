@@ -1,3 +1,15 @@
+/***************************************************************
+ * file: PlayActivity.java
+ * author: Luis Cortes, Oscar Hernandez, Henry Hu, Y-Uyen La, and An Le
+ * class: CS 245 - Programming Graphical User Interfaces
+ *
+ * assignment: Swing Project v1.0
+ * date last modified: 2/5/2017
+ *
+ * purpose: This class just retrieves the high scores and displays them. The scores are stored in the android device
+ *
+ ****************************************************************/
+
 package holay.team.memorycards;
 
 import android.content.Context;
@@ -23,6 +35,9 @@ public class HighscoreActivity extends AppCompatActivity {
     private TextView highscore3;
     private Button debugButton;
 
+    //method: onCreate
+    //purpose: This method initializes textViews for the high scores and loads them.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +62,9 @@ public class HighscoreActivity extends AppCompatActivity {
             }
         });
     }
+
+    //method: onCreate
+    //purpose: This method just loads the scores that have been saved onto the device
 
     private void loadScores() {
         try {
@@ -80,7 +98,8 @@ public class HighscoreActivity extends AppCompatActivity {
         }
     }
 
-    // Bind ancestral navigation up to the keyboard input 'up arrow'
+    //method: onCreate
+    //purpose: Bind ancestral navigation up to the keyboard input 'up arrow'
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_UP:
@@ -91,9 +110,8 @@ public class HighscoreActivity extends AppCompatActivity {
         }
     }
 
-    /*
- *  Method accepts a activity where it is coming from and sends them to this activity
- */
+    //method: onCreate
+    //purpose: It allows you to change from one activity to another.
     public static Intent newIntent(Context packageContext) {
         Intent i = new Intent(packageContext, HighscoreActivity.class);
         return i;
