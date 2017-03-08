@@ -77,6 +77,12 @@ public class AudioPlayer {
         }
     }
 
+    //method: setLoop
+    //purpose: This method sets the loop for the audio. It allows the audio to keep playing after it is done playing
+    public void setLoop(boolean loop) {
+        mp.setLooping(loop);
+    }
+
     //method: onCreate
     //purpose: This method sets the position of the music so it can pick back up from where it left off.
     public void setPosition(int pos) {

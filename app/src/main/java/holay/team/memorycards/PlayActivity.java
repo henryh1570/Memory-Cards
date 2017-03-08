@@ -151,6 +151,7 @@ public class PlayActivity extends AppCompatActivity {
         soundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bgmPlayer.setLoop(true);
                 if (!bgmPlayer.isPlaying() && bgmPlayer.getPosition() <= -1) {
                     bgmPlayer.play(PlayActivity.this);
                 } else if (bgmPlayer.isPlaying()) {
@@ -281,6 +282,7 @@ public class PlayActivity extends AppCompatActivity {
             if (savedInstanceState.getBoolean("bgmplaying")) {
                 bgmPlayer.resume();
             }
+            bgmPlayer.setLoop(true); // Set loop
         }
 
         // Set the card pointers on rotate.
